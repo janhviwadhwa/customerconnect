@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "438667978581",
+    "project_id": "customer-connect-301b4",
+    "storage_bucket": "customer-connect-301b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438667978581:android:91b0954fb7b14e6bddf1dc",
+        "android_client_info": {
+          "package_name": "com.abc.customerconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlwJJs4qTdM0zz8-FExxQCQYLJrYQ1tQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
