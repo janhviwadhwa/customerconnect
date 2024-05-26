@@ -1,71 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ownersignup"
-        android:id="@+id/ownersignupmain"
+    android:id="@+id/ownersignupmain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EA8D5B"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ownersignup">
+
+    <TextView
+        android:id="@+id/tvSignupTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="190dp"
+        android:text="Shop Owner Sign Up"
+        android:textColor="#041442"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/Name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="#EA8D5B">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:padding="12dp"
+        android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tvSignupTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Shop Owner Sign Up"
-            android:textColor="#041442"
-            android:textStyle="bold"
-            android:layout_marginTop="190dp"
-            android:textSize="24sp"
-            android:layout_gravity="center"
-          />
+    <EditText
+        android:id="@+id/Email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etSignupEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Shop Number"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            android:inputType="number"
-            android:padding="12dp" />
+    <EditText
+        android:id="@+id/ShopNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Shop No"
+        android:inputType="number"
+        android:padding="12dp"
+        android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etSignupPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Address"
-            android:inputType="textPostalAddress"
-            android:textColor="@color/black"
-            android:padding="12dp"
-            android:layout_marginTop="16dp" />
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etSignupConfirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:textColor="@color/black"
-            android:padding="12dp"
-            android:layout_marginTop="16dp" />
+    <EditText
+        android:id="@+id/ConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:textColor="@color/black" />
 
-        <Button
-            android:id="@+id/btnSignup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sign Up"
-            android:backgroundTint="#041442"
-            android:layout_marginTop="24dp" />
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#041442"
+        android:text="Sign Up" />
 
-        <TextView
-            android:id="@+id/logintxtbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Already have an account? Login"
-            android:textColor="#041442"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/logintxtbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Already have an account? Login"
+        android:textColor="#041442" />
+</LinearLayout>
