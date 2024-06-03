@@ -54,9 +54,9 @@ class customersignup : AppCompatActivity() {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 val userId = mAuth.currentUser?.uid!!
-                val customer = customers(name, email, phoneNumber)
+                val customer = Customer(name, email, phoneNumber)
                 addUserToDatabase(userId, customer)
-                val intent = Intent(this@customersignup, MainActivity::class.java)
+                val intent = Intent(this@customersignup, CustomerMainActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
@@ -69,7 +69,7 @@ class customersignup : AppCompatActivity() {
         }
     }
 
-    private fun addUserToDatabase(userId: String, customer: customers) {
+    private fun addUserToDatabase(userId: String, customer: Customer) {
         mDbRef = FirebaseDatabase.getInstance().getReference()
         mDbRef.child("Customers").child(userId).setValue(customer)
     }

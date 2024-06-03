@@ -24,17 +24,17 @@
          />
 
     <EditText
-        android:id="@+id/etLoginEmail"
+        android:id="@+id/Email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Shop Number"
+        android:hint="Email"
         android:textColor="@color/black"
         android:layout_marginTop="10dp"
-        android:inputType="number"
+        android:inputType="textEmailAddress"
         android:padding="12dp" />
 
     <EditText
-        android:id="@+id/etLoginPassword"
+        android:id="@+id/Password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
@@ -44,7 +44,7 @@
         android:layout_marginTop="16dp" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnoLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
@@ -52,7 +52,7 @@
         android:layout_marginTop="24dp" />
 
     <TextView
-        android:id="@+id/signuptxtbtn"
+        android:id="@+id/signupotxtbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Don't have an account? Sign up"

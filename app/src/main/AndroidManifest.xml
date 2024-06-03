@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
         android:allowBackup="true"
@@ -14,6 +16,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Customerconnect"
         tools:targetApi="31">
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".item_owner"
+            android:exported="false" />
+        <activity
+            android:name=".OwnerMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CustomerMainActivity"
+            android:exported="false" />
         <activity
             android:name=".userr"
             android:exported="false" />
