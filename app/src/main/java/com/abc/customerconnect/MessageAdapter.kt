@@ -1,42 +1,43 @@
 package com.abc.customerconnect
 
-import Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class MessageAdapter : ListAdapter<Message, MessageAdapter.MessageViewHolder>(MessageDiffCallback()) {
+class MessageAdapter(
+    private val ownerId: String,
+    private val ownerName: String,
+    private val ownerEmail: String,
+    private var messages: MutableList<Message>
+) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 
     inner class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val textViewMessage: TextView = itemView.findViewById(R.id.textViewMessage)
-        private val textViewSender: TextView = itemView.findViewById(R.id.textViewSender)
-
-        fun bind(message: Message) {
-            textViewMessage.text = message.content
-            textViewSender.text = message.senderName
-        }
+        val messageText: TextView = itemView.findViewById(R.id.message_text)
+        val senderInfo: TextView = itemView.findViewById(R.id.sender_info)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_message, parent, false)
-        return MessageViewHolder(view)
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_message, parent, false)
+        return MessageViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val message = messages[position]
+
+        holder.messageText.text = message.content
+        holder.senderInfo.text = "${message.senderName}: ${message.senderEmail}"
     }
 
-    class MessageDiffCallback : DiffUtil.ItemCallback<Message>() {
-        override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
-            return oldItem.timestamp == newItem.timestamp
-        }
+    override fun getItemCount(): Int {
+        return messages.size
+    }
 
-        override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
-            return oldItem == newItem
-        }
+    fun updateMessages(updatedMessages: List<Message>) {
+        messages.clear()
+        messages.addAll(updatedMessages)
+        notifyDataSetChanged()
     }
 }

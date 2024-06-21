@@ -1,7 +1,5 @@
-package com.abc.customerconnect
-
-
 data class Owner(
-    val name: String,
-    val email: String
+    val ownerId: String,
+    val ownerName: String,
+    val ownerEmail: String
 )

@@ -1,8 +1,8 @@
+package com.abc.customerconnect
+
 data class Message(
-    val content: String = "",
     val senderName: String = "",
-    val timestamp: String = ""
-) {
-    // No-argument constructor required by Firebase for deserialization
-    constructor() : this("", "", "")
-}
+    val senderEmail: String = "",
+    val content: String = "",
+    val timestamp: Long = 0
+)

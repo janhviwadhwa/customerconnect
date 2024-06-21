@@ -23,7 +23,8 @@ class OwnerMainActivity : AppCompatActivity() {
 
         // Initialize RecyclerView and adapter
         customerList = findViewById(R.id.customer_list)
-        customerListAdapter = CustomerListAdapter()
+        customerListAdapter = CustomerListAdapter { /* Handle item click here if needed */ }
+
         customerList.apply {
             layoutManager = LinearLayoutManager(this@OwnerMainActivity)
             adapter = customerListAdapter
@@ -39,9 +40,9 @@ class OwnerMainActivity : AppCompatActivity() {
 
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val customerMessages = mutableListOf<CustomerMessage>()
+                val customerMessages = mutableListOf<Message>()
                 for (messageSnapshot in dataSnapshot.children) {
-                    val customerMessage = messageSnapshot.getValue(CustomerMessage::class.java)
+                    val customerMessage = messageSnapshot.getValue(Message::class.java)
                     customerMessage?.let {
                         customerMessages.add(it)
                     }
@@ -55,13 +56,12 @@ class OwnerMainActivity : AppCompatActivity() {
         })
     }
 
-    private fun displayCustomerList(customerMessages: List<CustomerMessage>) {
-        // Convert customer messages to customer details and display in RecyclerView
-        val customerList = mutableListOf<Customer>()
+    private fun displayCustomerList(customerMessages: List<Message>) {
+        val customers = mutableListOf<Customer>()
         for (message in customerMessages) {
-            val customer = Customer(message.senderName, message.senderEmail, message.message)
-            customerList.add(customer)
+            val customer = Customer(message.senderName, message.senderEmail, message.content)
+            customers.add(customer)
         }
-        customerListAdapter.submitList(customerList)
+        customerListAdapter.submitList(customers)
     }
 }

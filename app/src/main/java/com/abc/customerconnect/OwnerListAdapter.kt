@@ -1,20 +1,16 @@
 package com.abc.customerconnect
 
+import Owner
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class OwnerListAdapter(private val onItemClick: (Owner) -> Unit) : RecyclerView.Adapter<OwnerListAdapter.ViewHolder>() {
-
-    private var ownerList = mutableListOf<Owner>()
-
-    fun submitList(list: List<Owner>) {
-        ownerList.clear()
-        ownerList.addAll(list)
-        notifyDataSetChanged()
-    }
+class OwnerListAdapter(
+    private val owners: List<Owner>,
+    private val onItemClick: (Owner) -> Unit
+) : RecyclerView.Adapter<OwnerListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_owner, parent, false)
@@ -22,20 +18,24 @@ class OwnerListAdapter(private val onItemClick: (Owner) -> Unit) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val owner = ownerList[position]
+        val owner = owners[position]
         holder.bind(owner)
-        holder.itemView.setOnClickListener { onItemClick(owner) }
+        holder.itemView.setOnClickListener {
+            onItemClick(owner)
+        }
     }
 
-    override fun getItemCount() = ownerList.size
+    override fun getItemCount(): Int {
+        return owners.size
+    }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val nameTextView: TextView = itemView.findViewById(R.id.ownerNameTextView)
-        private val emailTextView: TextView = itemView.findViewById(R.id.ownerEmailTextView)
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val ownerNameTextView: TextView = itemView.findViewById(R.id.owner_name)
+        private val ownerEmailTextView: TextView = itemView.findViewById(R.id.owner_email)
 
         fun bind(owner: Owner) {
-            nameTextView.text = owner.name
-            emailTextView.text = owner.email
+            ownerNameTextView.text = owner.ownerName
+            ownerEmailTextView.text = owner.ownerEmail
         }
     }
 }

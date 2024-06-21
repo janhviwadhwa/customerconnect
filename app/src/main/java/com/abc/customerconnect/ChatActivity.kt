@@ -1,6 +1,5 @@
 package com.abc.customerconnect
 
-import Message
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -9,74 +8,93 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import java.util.*
 
 class ChatActivity : AppCompatActivity() {
-
     private lateinit var messageList: RecyclerView
     private lateinit var messageAdapter: MessageAdapter
-    private lateinit var databaseReference: DatabaseReference
+    private lateinit var ownerId: String
     private lateinit var auth: FirebaseAuth
-
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var messageInput: EditText
     private lateinit var sendButton: Button
-    private lateinit var messageEditText: EditText
-    private lateinit var ownerName: String
-    private lateinit var ownerEmail: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        // Initialize Firebase components
         auth = FirebaseAuth.getInstance()
-        ownerName = intent.getStringExtra("ownerName") ?: ""
-        ownerEmail = intent.getStringExtra("ownerEmail") ?: ""
+        databaseReference = FirebaseDatabase.getInstance().getReference("messages")
 
+        // Get owner details from intent extras
+        ownerId = intent.getStringExtra("ownerId") ?: ""
+        val ownerName = intent.getStringExtra("ownerName") ?: ""
+        val ownerEmail = intent.getStringExtra("ownerEmail") ?: ""
+
+        // Set up RecyclerView for messages
         messageList = findViewById(R.id.message_list)
-        sendButton = findViewById(R.id.send_button)
-        messageEditText = findViewById(R.id.message_edit_text)
-
-        messageAdapter = MessageAdapter()
-        messageList.layoutManager = LinearLayoutManager(this)
-        messageList.adapter = messageAdapter
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("messages").child(ownerName)
-
-        sendButton.setOnClickListener {
-            sendMessage()
+        messageAdapter = MessageAdapter(ownerId, ownerName, ownerEmail, mutableListOf())
+        messageList.apply {
+            layoutManager = LinearLayoutManager(this@ChatActivity)
+            adapter = messageAdapter
         }
 
-        listenForMessages()
+        // Set up message input and send button
+        messageInput = findViewById(R.id.message_input)
+        sendButton = findViewById(R.id.send_button)
+        sendButton.setOnClickListener { sendMessage() }
+
+        // Retrieve and display messages for the selected owner
+        retrieveMessages()
+    }
+
+    private fun retrieveMessages() {
+        val currentUserEmail = auth.currentUser?.email
+
+        databaseReference.child(ownerId).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val messages = mutableListOf<Message>()
+                for (messageSnapshot in dataSnapshot.children) {
+                    val senderName = messageSnapshot.child("senderName").value?.toString() ?: ""
+                    val senderEmail = messageSnapshot.child("senderEmail").value?.toString() ?: ""
+                    val content = messageSnapshot.child("content").value?.toString() ?: ""
+                    val timestamp = messageSnapshot.child("timestamp").getValue(Long::class.java) ?: 0
+
+                    if (senderEmail == currentUserEmail) {
+                        val message = Message(senderName, senderEmail, content, timestamp)
+                        messages.add(message)
+                    }
+                }
+                displayMessages(messages)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle errors
+            }
+        })
+    }
+
+    private fun displayMessages(messages: List<Message>) {
+        messageAdapter.updateMessages(messages)
+        // Scroll to the bottom of the RecyclerView
+        messageList.scrollToPosition(messages.size - 1)
     }
 
     private fun sendMessage() {
-        val messageText = messageEditText.text.toString().trim()
-        if (messageText.isNotEmpty()) {
+        val content = messageInput.text.toString().trim()
+        if (content.isNotEmpty()) {
             val currentUser = auth.currentUser
-            currentUser?.let { user ->
-                val senderName = user.displayName ?: "Anonymous"
-                val senderEmail = user.email ?: "unknown@example.com"
+            val senderName = currentUser?.displayName ?: "Anonymous"
+            val senderEmail = currentUser?.email ?: "unknown@example.com"
+            val timestamp = System.currentTimeMillis()
 
-                val message = Message(messageText, senderName, System.currentTimeMillis().toString())
-                databaseReference.push().setValue(message)
+            val message = Message(senderName, senderEmail, content, timestamp)
+            val newMessageRef = databaseReference.child(ownerId).push()
+            newMessageRef.setValue(message)
 
-                messageEditText.text.clear()
-            }
+            // Clear the input field after sending the message
+            messageInput.text.clear()
         }
-    }
-
-    private fun listenForMessages() {
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val messages = mutableListOf<Message>()
-                for (data in snapshot.children) {
-                    val message = data.getValue(Message::class.java)
-                    message?.let { messages.add(it) }
-                }
-                messageAdapter.submitList(messages)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle database error
-            }
-        })
     }
 }
