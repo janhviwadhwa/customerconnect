@@ -1,15 +1,32 @@
-<!-- activity_chat.xml -->
+<!-- Please enter the grocery list -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#85D9E4">
+
+    <!-- Header text -->
+    <TextView
+        android:id="@+id/header_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Please Enter the Grocery List"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:padding="16dp"
+        android:textColor="#071D5E"/>
+
+    <!--customer sends msgs to owner-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/message_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/message_input_layout"/>
+        android:layout_below="@id/header_text"
+        android:layout_above="@+id/message_input_layout"
+        android:padding="8dp"/>
 
     <LinearLayout
         android:id="@+id/message_input_layout"
@@ -24,12 +41,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Type a message"/>
+            android:hint="Type a message"
+            android:textColor="#071D5E"/>
 
         <Button
             android:id="@+id/send_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#071D5E"
             android:text="Send"/>
     </LinearLayout>
 

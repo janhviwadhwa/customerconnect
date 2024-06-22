@@ -4,7 +4,7 @@
     android:id="@+id/ownersignupmain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EA8D5B"
+    android:background="#E9AA89"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".ownersignup">
@@ -76,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:backgroundTint="#041442"
+        android:textColor="@color/white"
         android:text="Sign Up" />
 
     <TextView

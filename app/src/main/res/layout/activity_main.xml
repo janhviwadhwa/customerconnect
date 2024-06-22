@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:text="CUSTOMERS" />
     </LinearLayout>
 
@@ -47,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:text="SHOP OWNERS" />
     </LinearLayout>
 

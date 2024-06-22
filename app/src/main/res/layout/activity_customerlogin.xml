@@ -3,32 +3,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#85D9E4"
     tools:context=".customerlogin">
+<!--merge this with customerloginsignup-->
+
+        <TextView
+            android:id="@+id/tvLoginTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Login"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="190dp"
+            android:textColor="#071D5E"
+            android:layout_gravity="center"
+            />
 
         <EditText
             android:id="@+id/etLoginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email" />
+            android:hint="Email"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"/>
 
         <EditText
             android:id="@+id/etLoginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"/>
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login" />
+            android:text="Login"
+            android:backgroundTint="#071D5E"
+            android:textColor="@color/white"
+            android:layout_marginTop="24dp"/>
 
         <TextView
             android:id="@+id/signuptxtbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
-            android:textColor="@android:color/holo_blue_light"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:text="Don't have an account? Sign up"
+            android:textColor="#071D5E"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"/>
 </LinearLayout>

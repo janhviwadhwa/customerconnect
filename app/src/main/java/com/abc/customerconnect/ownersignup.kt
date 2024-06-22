@@ -54,7 +54,7 @@ class ownersignup : AppCompatActivity() {
                 val userId = mAuth.currentUser?.uid!!
                 val owners = owners(name, email, shopno)
                 addUserToDatabase(userId, owners)
-                val intent = Intent(this@ownersignup, userr::class.java)
+                val intent = Intent(this@ownersignup, OwnerMainActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
